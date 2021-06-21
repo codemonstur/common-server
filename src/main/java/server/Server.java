@@ -8,15 +8,15 @@ import java.util.List;
 
 public final class Server {
 
-    private final int port;
     private final int backlog;
-    private final String address;
     private final ConnectionHandler handler;
+    private final int port;
+    private final InetAddress bindAddress;
 
-    public Server(final int port, final int backlog, final String address, final ConnectionHandler handler) {
+    public Server(final int port, final InetAddress bindAddress, final int backlog, final ConnectionHandler handler) {
         this.port = port;
+        this.bindAddress = bindAddress;
         this.backlog = backlog;
-        this.address = address;
         this.handler = handler;
     }
 
@@ -25,7 +25,7 @@ public final class Server {
     private final List<Connection> connections = new LinkedList<>();
 
     public Server start() throws IOException {
-        this.serverSocket = new ServerSocket(port, backlog, InetAddress.getByName(address));
+        this.serverSocket = new ServerSocket(port, backlog, bindAddress);
         new Thread(() -> {
             while (running) {
                 try {
