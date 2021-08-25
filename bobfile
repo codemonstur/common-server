@@ -4,5 +4,6 @@ vendor: com.github.codemonstur
 version: 0.1.0
 packaging: jar
 enablePreview: false
+dependencies:
   - repository: junit:junit:4.13.2
     scope: test
